@@ -4,16 +4,7 @@ Triggers = function(send, ui, onProfileAdded, gmcpHandle, gmcpSend) {
     exports.getProfile = function() { return profile; };
     var triggers = [];  // ordered list of pairs (regex, action) -- current profile
     var defaultTriggers = [];  // ordered list of pairs (regex, action) -- these match across all profiles
-    var saveBtn = document.getElementById('saveTriggers');
-    var loadBtn = document.getElementById('loadTriggers');
     let simplecrypto = SimpleCrypto();
-
-    saveBtn.onclick = function() {
-        let trg = window.localStorage.getItem('triggers') || "{}";
-        simplecrypto.encrypt(trg, function(encrypted) {
-            gmcpSend("remember triggers " + encrypted);
-        });
-    }
 
     gmcpHandle("retrieve.triggers", function(encrypted) {
         simplecrypto.decrypt(encrypted, function(decrypted) {
@@ -24,10 +15,6 @@ Triggers = function(send, ui, onProfileAdded, gmcpHandle, gmcpSend) {
             alert("Loaded triggers.");
         });
     });
-
-    loadBtn.onclick = function() {
-        gmcpSend("retrieve triggers");
-    }
 
     function deserialize(str) {
         str = str.substr(1, str.length - 2); // drop surrounding /

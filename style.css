@@ -1,17 +1,33 @@
-/* --- layout --- */
 html {
     height: 100%;
+    font-smooth: never;
+    -webkit-font-smoothing: antialiased;    
+    font-family: monospace;
 }
 
 body {
     height: 100%;
+    overflow:hidden;    
 }
 
 #client {
-    /* height: calc(100vh - 35px); */
-    height: 100%;
+    height: calc(100vh - 5px);
+    /* height: 100%; */
     max-height: 100%;
     width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #000; 
+}
+::-webkit-scrollbar-thumb {
+  background: #334; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #556; 
 }
 
 #client #output {
@@ -27,20 +43,21 @@ body {
     float: right;
     position: fixed;
     top: 3px;
-    right: 21px; /* to accommodate the scrollbar. Anyone know a better way to deal with this? */
-}
-
-#menu #stuffList {
+    right: 21px;
 }
 
 #inputfield {
     position: fixed;
-    width: calc(100vw - 18px); /* padding 3 + border 1 + margin 5 */
+    width: calc(100vw - 18px); 
     height: 1.5em;
+    padding: 3px;    
     margin: 5px;
     bottom: 0px;
     right: 0px;
     left: 0px;
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.8);
+    border: 1px solid #000;    
 }
 
 #popup {
@@ -58,84 +75,72 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-/* modal popup with clickaway overlay */
-
 input.modalTrigger {
-  display: none;
+    display: none;
 }
 #popupClose {
-  position: fixed;
-  top: 1em;
-  left: 1em;
+    position: fixed;
+    top: 1em;
+    left: 1em;
 }
 
 #popupCloseX {
-  position: absolute;
-  right: -0.5em;
-  top: -0.5em;
-  font-size: 200%;
+    position: absolute;
+    right: -0.5em;
+    top: -0.5em;
+    font-size: 200%;
 }
 
 label.popupBackground {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-  background-color: lightgray;
-  transition: all 0.3s ease;
-  z-index: -100;
-  display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background-color: #111111;
+    transition: all 0.3s ease;
+    z-index: -100;
+    display: none;
 }
 
 #popupClose:checked ~ div.popupContent {
-  display: block;
-  z-index: 100;
+    display: block;
+    z-index: 100;
 }
 
 #popupClose:checked ~ label.popupBackground {
-  display: block;
-  z-index: 90;
+    display: block;
+    z-index: 90;
 }
 
 div.popupContent {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eeeeee;
-  color: #050505;
-  padding: 1em;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #eeeeee;
+    color: #050505;
+    padding: 1em;
 }
 
 div.popupContent div {
-  display: none;
+    display: none;
 }
-
 
 table {border-collapse: collapse;}
 
 body, #menu ul li {
-    color: #bbbbbb;
-    background-color: #272727;
+    color: #99bbbb;
+    background-color: #222222;
+    background-image: url("bg.png");
 } 
 
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-}
 
-#inputfield {
-    padding: 3px;
-    font-family: monospace;
-    color: #333333;
-    background: #f3f3f3;
-    border: 1px solid #ffffff;
-    border-radius: 3px;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.30);
 }
 
 #inputfield:focus {
@@ -143,11 +148,13 @@ body {
 }
 
 #client #output {
+    background-color: rgba(0,0,0,0.8);    
+    border: 1px solid #000;    
     padding: 10px;
-    font-family: monospace;
+    margin: 5px;
     line-height: 14px;
     white-space: pre-wrap;
-    color: #dddddd;
+    color: #fff;
 }
 
 ul#menuitems {
@@ -183,10 +190,8 @@ ul#menuitems > li {
 }
 
 #menu input {
-    font-family: monospace;
     color: #333333;
-    border: 3px solid #ffffff;
-    border-radius: 10px;
+    border: 3px solid #aaaaaa;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.70);
 }
 
@@ -205,11 +210,9 @@ ul#menuitems > li {
 #stuffListBox {
     display: none;
     position: fixed;
-    top: 55px;
     right: 20px;
     max-width: 30%;
     min-width: 10em;
-    /* max-height: calc(100% - 55px - (1.5em + 18px)); */
     max-height: 30%;
     overflow-y: auto;
 }
@@ -271,73 +274,3 @@ ul#menuitems > li {
     color: #dddddd;
 }
 
-/* --- status bars --- */
-div.statBars {
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
-  opacity: 0.5;
-  display: none; /* enabled when the JS loads */
-  float: bottom;
-}
-
-@media only screen and (max-width: 600px) {
-  div.statBars.horizontal {
-    width: 80vw;
-  }
-}
-
-div.statBars.vertical {
-  height: 20em;
-  bottom: 3em;
-}
-
-div.statBars.horizontal {
-  width: 20em;
-}
-
-div.statBars.vertical div.statBar {
-  text-align: center;
-  vertical-align: bottom;
-}
-
-div.statBars.horizontal div.statBar {
-  width: 100%;
-  height: 1em;
-}
-
-div.statBar {
-  display: none; /* not all classes need all bars, let the server decide */
-}
-
-div.statBar#hpBar {
-  background-color: red;
-}
-
-div.statBar#manaBar {
-  background-color: purple;
-}
-
-div.statBar#movesBar {
-  background-color: gray;
-}
-
-div.statBar#pietyBar {
-  background-color: gold;
-}
-
-div.statBar#lifeforceBar {
-  background-color: green;
-}
-
-div.statBar#tnlBar {
-  background-color: silver;
-}
-
-div.statBar#enemyBar {
-  background-color: brown;
-}
-
-div.statBar#tankHpBar {
-  background-color: blue;
-}

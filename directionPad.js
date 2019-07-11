@@ -1,4 +1,4 @@
-var DirectionPad = function(gmcp, send, macros, killificator) {
+var DirectionPad = function(gmcp, send, macros) {
     var pad = document.getElementById('directionPad');
     var [nw, n, ne, u, w, center, e, mobs, sw, s, se, d] = pad.children;
     var dirs = {
@@ -12,17 +12,13 @@ var DirectionPad = function(gmcp, send, macros, killificator) {
         'w': w,
         'u': u,
         'd': d,
-        'center': center,
-        'mobs': mobs
+        'center': center
     }
 
     for (var d in dirs)
         dirs[d].onclick = function(cmd) {
             return function() { send(macros.openDoorAndGo(cmd)) }
         }(d);
-    dirs['mobs'].onclick = function(cmd) {
-        killificator.go();
-    }
 
     gmcp.handle("room.mobs", function(rm) {
         dirs['mobs'].innerText = rm.length <= 9 ? rm.length : '∞';

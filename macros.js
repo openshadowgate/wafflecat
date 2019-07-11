@@ -1,4 +1,4 @@
-var Macros = function(send, killificator) {
+var Macros = function(send) {
     var exports = {};
 
     // We need backup because the presence of doors overrides directions
@@ -8,7 +8,7 @@ var Macros = function(send, killificator) {
         "Numpad2": "s",
         "Numpad3": "se",
         "Numpad4": "w",
-        "Numpad5": killificator.go,
+        "Numpad5": "numpad5",
         "Numpad6": "e",
         "Numpad7": "nw",
         "Numpad8": "n",

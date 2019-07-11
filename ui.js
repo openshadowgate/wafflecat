@@ -10,6 +10,8 @@ var Ui = function(options, send, gmcp, macros) {
     var gear = document.getElementById('gearCheckbox');
     var pause = document.getElementById('pauseCheckbox');
     var ansi_up = new AnsiUp;
+    ansi_up.use_classes = true;
+
     winHeight = parseInt(document.defaultView.getComputedStyle(document.body)['height'].replace("px", ""));
     lineHeight = parseInt(document.defaultView.getComputedStyle(outputf, null)['line-height'].replace("px", ""));
     var page = Math.floor(winHeight / lineHeight) + 1;
@@ -62,7 +64,7 @@ var Ui = function(options, send, gmcp, macros) {
     function toCommLog(obj) {
         let dNow = new Date();
         let sNow = dNow.getHours() + ":" + dNow.getMinutes();
-        let msg = sNow + " " + ansi_up.ansi_to_html(obj.msg);
+        let msg = sNow + "." + ansi_up.ansi_to_html(obj.msg);
         commLog.push([obj.chan, msg]);
         if (!(obj.chan in commLogTypesEnabled))
             commLogTypesEnabled[obj.chan] = true;
@@ -108,6 +110,7 @@ var Ui = function(options, send, gmcp, macros) {
     exports.output = function(mudstr, runTriggers) {
         mudstr = mudstr.replace(/\r/g, "");
         mudstr = ansi_up.ansi_to_html(mudstr);
+        mudstr = mudstr.replace(/ù/g,"<br\>");        
         var split = mudstr.split(/\n/);
         var line = split.shift();
         outS.push(line);

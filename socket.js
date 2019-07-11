@@ -31,7 +31,7 @@ Socket = function(onMudOutput, blit, gmcp) {
         }
     }
 
-    var websock = new WebSocket('wss://' + window.location.hostname + ':7901', 'binary');
+    var websock = new WebSocket('wss://' + window.location.hostname + '/ws/', 'binary');
     websock.addEventListener('message', function (event) {
         inQ.push(event.data);
         flushQ();
@@ -50,3 +50,4 @@ Socket = function(onMudOutput, blit, gmcp) {
 
     return exports;
 };
+

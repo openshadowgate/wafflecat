@@ -17,29 +17,7 @@ function changelog() {
         window.localStorage.setItem('triggers', JSON.stringify({"default": trg}));
     }
     var changes = [
-        "Added stat bars",
-        "Added time to comm log",
-        "Triggers can now be saved mudside. The save is encrypted in browser.",
-        "Added a pause button",
-        "Trigger profiles can how be autoloaded through hash: bookmark https://sneezymud.org#mage for `mage` profile",
-        "Added sending commands to other characters: `#cleric h` executes `h` in all profiles named `cleric`",
-        "Added command repeat: #5 'hi executes 'hi five times",
-        "Triggers in the default trigger profile now match for all profiles.",
-        "Added Killificator -- press / on Numpad or tap the number for great fun.",
-        "Added trigger profiles.",
-        "Direction pad and numpad automagically open doors now.",
-        "Direction pad is clicable, for playing on phones",
-        "Direction pad",
-        "Comm log subwindow",
-        "Added command history.\nType a command. Type lots of other commands. Then type the beginning of an old command and smash ArrowUp key -- it'll find and complete it.",
-        "Triggers are now parametric. For example,\n^(.+) says, \"(.+)\"$\n'%2 %2 yourself, you %1\nNicodemus the old fisherman says, \"hi\"\nYou say, \"hi hi yourself, you Nicodemus the old fisherman\"",
-        "Added option to clear command line.",
-        "Triggers are here!",
-        "Pathificator now displays favorite rooms",
-        "Start typing anywhere and the input field gets focus.",
-        "Pathificator now remembers favorite rooms and displays them on the top of the list.",
-        "Keypad navigation! Use your numeric keypad, with NumLock \"on\", to walk the world. Plus and Minus go down and up. 5 issues the \"look\" command.",
-        "Basic working client"
+        "Forked from connectificator."
     ]
     var version = changes.length
     var oldVersion = parseInt(window.localStorage.getItem('version')) || 0
@@ -74,17 +52,15 @@ function loadOptions() {
         clearCommandBtn.value = options['clearCommand'] ? 'On' : 'Off';
     }
 
-    var commLogOptions = document.getElementById('commLogOptions');
-    commLogOptions.onclick = function() {
-        ui.commLogOptions();
-    };
+    // var commLogOptions = document.getElementById('commLogOptions');
+    // commLogOptions.onclick = function() {
+    //     ui.commLogOptions();
+    // };
     return options;
 }
 
 function loadMoreJs() {
   let extraJs = [
-    "exportSettings.js",
-    "statBars.js",
     "lz-string.min.js"
   ];
   for (i in extraJs) {
@@ -116,7 +92,6 @@ function handleCmd(text, send, profiles) {
 // expose to console
 var triggers = null;
 var gmcp = null;
-var pathificator = null;
 
 function start() {
     loadMoreJs();
@@ -147,8 +122,7 @@ function start() {
 
     // start modlules
     gmcp = Gmcp();
-    var killificator = Killificator(send, gmcp);
-    var macros = Macros(send, killificator);
+    var macros = Macros(send);
     ui = Ui(options, send, gmcp, macros);
     function onProfileAdded(newProfiles) {
       profiles.length = 0;
@@ -159,10 +133,8 @@ function start() {
     }
     var socket = Socket(onMudOutput, ui.blit, gmcp);
     var triggers = Triggers(send, ui, onProfileAdded, gmcp.handle, socket.gmcpSend);
-    pathificator = Pathificator(send, gmcp, ui);
-    directionPad = DirectionPad(gmcp, send, macros, killificator);
+    directionPad = DirectionPad(gmcp, send, macros);
     addGmcpHandlers();
-    document.getElementById('triggersBtn').onclick = function() { triggers.draw() }
     window.onkeypress = function(e) {
         if (macros.run(e.code))
             return;

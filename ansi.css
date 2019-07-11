@@ -1,0 +1,41 @@
+.ansi-black-fg { color: #5e5e5e; }
+.ansi-bright-black-fg { color: #5E5D5E; }
+
+.ansi-red-fg { color: #ee0000; }
+.ansi-bright-red-fg { color: #ff0000; }
+
+.ansi-green-fg { color: #00bb00; }
+.ansi-bright-green-fg { color: #66ff00; }
+
+.ansi-yellow-fg { color: #eeee00; }
+.ansi-bright-yellow-fg { color: #ffff33; }
+
+.ansi-blue-fg { color: #3366ff; }
+.ansi-bright-blue-fg { color: #3388ff; }
+
+.ansi-magenta-fg { color: #ee00ee; }
+.ansi-bright-magenta-fg { color: #ff33ff; }
+
+.ansi-cyan-fg { color: #33bbbb; }
+.ansi-bright-cyan-fg { color: #33ddff; }
+
+.ansi-white-fg { color: #eeeeee; }
+.ansi-bright-white-fg { color: #ffffff; }
+
+.ansi-black-bg {  }
+.ansi-red-bg { background-color: #aa0000; }
+.ansi-green-bg { background-color: #00aa00; }
+.ansi-yellow-bg { background-color: #aaaa00; }
+.ansi-blue-bg { background-color: #0000aa; }
+.ansi-magenta-bg { background-color: #aa00aa; }
+.ansi-cyan-bg { background-color: #00aaaa; }
+.ansi-white-bg { background-color: #aaaaaa; }
+.ansi-bright-black-bg {  }
+.ansi-bright-red-bg { background-color: #aa0000; }
+.ansi-bright-green-bg { background-color: #00aa00; }
+.ansi-bright-yellow-bg { background-color: #aaaa00; }
+.ansi-bright-blue-bg { background-color: #0000aa; }
+.ansi-bright-magenta-bg { background-color: #aa00aa; }
+.ansi-bright-cyan-bg { background-color: #00aaaa; }
+.ansi-bright-white-bg { background-color: #aaaaaa; }
+
