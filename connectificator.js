@@ -1,8 +1,8 @@
 function addGmcpHandlers() {
     /*
-    Gmcp.handle("room.info", function() {
-        console.log("In room " + Gmcp.gmcp()['room']['info']['num']);
-    });
+      Gmcp.handle("room.info", function() {
+      console.log("In room " + Gmcp.gmcp()['room']['info']['num']);
+      });
     */
 }
 
@@ -40,34 +40,30 @@ function loadOptions() {
     options.save = function() {
         window.localStorage.setItem('options', JSON.stringify(options));
     }
-
+    if(!('clearCommand' in options))
+        options['clearCommand'] = true;
     var clearCommandBtn = document.getElementById('clearCommand');
     clearCommandBtn.value = 'clearCommand' in options ? (options['clearCommand'] ? 'On' : 'Off') : 'Off';
     clearCommandBtn.onclick = function() {
-        if ('clearCommand' in options)
+        if('clearCommand' in options)
             options['clearCommand'] = !options['clearCommand'];
         else
             options['clearCommand'] = true; // the default being Off
         options.save();
         clearCommandBtn.value = options['clearCommand'] ? 'On' : 'Off';
     }
-
-    // var commLogOptions = document.getElementById('commLogOptions');
-    // commLogOptions.onclick = function() {
-    //     ui.commLogOptions();
-    // };
     return options;
 }
 
 function loadMoreJs() {
-  let extraJs = [
-    "lz-string.min.js"
-  ];
-  for (i in extraJs) {
-    let download = document.createElement("script");
-    download.src = extraJs[i];
-    document.body.appendChild(download);
-  }
+    let extraJs = [
+        "lz-string.min.js"
+    ];
+    for (i in extraJs) {
+        let download = document.createElement("script");
+        download.src = extraJs[i];
+        document.body.appendChild(download);
+    }
 }
 
 function handleCmd(text, send, profiles) {
@@ -103,14 +99,14 @@ function start() {
         } else {
             texts = text.split(';')
             if (texts.length > 1) {
-              texts.forEach((s) => send(s));
-              return;
+                texts.forEach((s) => send(s));
+                return;
             }
         }
 
         if (text.startsWith('#')) {
-          handleCmd(text, send, profiles);
-          return;
+            handleCmd(text, send, profiles);
+            return;
         }
 
         socket.send(text + "\n");
@@ -125,8 +121,8 @@ function start() {
     var macros = Macros(send);
     ui = Ui(options, send, gmcp, macros);
     function onProfileAdded(newProfiles) {
-      profiles.length = 0;
-      newProfiles.forEach((p) => profiles.push(p));
+        profiles.length = 0;
+        newProfiles.forEach((p) => profiles.push(p));
     }
     function onMudOutput(str) {
         ui.output(str, triggers.run)
@@ -147,3 +143,4 @@ function start() {
 
     changelog();
 }
+
